@@ -6,6 +6,12 @@ if [ "$PROGRAM" == "" ]; then
   PROGRAM=src/asm/test/main.asm
 fi
 
+# If you're lazy then omit the path, and this code will
+# assume the code is in the usual place
+if [ ! -f $PROGRAM ]; then
+  PROGRAM=src/asm/test/$PROGRAM
+fi
+
 WORKPATH=out/`dirname $PROGRAM`
 OUTFILEBASE=$WORKPATH/`basename $PROGRAM`
 
