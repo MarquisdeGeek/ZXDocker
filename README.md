@@ -53,6 +53,16 @@ And finally, run any existing .tap files with the wrapper script of:
 Because the container mounts a directory on the host machine, you can edit the source using
 whatever tools feel good, without having to install them into the container.
 
+## Working with Z88dk
+
+If you're wanting to try C development with your Spectrum, then my approach (FWIW) is to use the docker (detailed at https://github.com/z88dk/z88dk/wiki/Docker-Usage)
+and build your code there, and copy the results across to the ZXDocker container. (They use Alpine Linux which doesn't contain any of the packages I use so, being
+the efficient/lazy developer that I am, didn't spend time to munge the two together.)
+
+The `xfer.sh` script will copy a .tap file from the `/src/examples/spectrum` folder from the z88dk container, into the `/home/user/zx/src/tap` of zxdocker.
+
+Passing a filename of `ls` will list the files.
+
 
 # Interacting with the container
 
