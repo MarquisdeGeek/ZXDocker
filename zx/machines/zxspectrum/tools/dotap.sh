@@ -1,7 +1,7 @@
 #!/bin/bash
 
 PROGRAM=$1
-ROMPATH=roms
+SCRIPT_DIR=$( cd -- "$( dirname -- "${BASH_SOURCE[0]}" )" &> /dev/null && pwd )
 
 if [ "$PROGRAM" == "" ]; then
   PROGRAM=src/tap/hello.tap
@@ -13,4 +13,7 @@ if [ ! -f $PROGRAM ]; then
   PROGRAM=src/tap/$PROGRAM
 fi
 
-./emu.sh $PROGRAM
+echo "Loading program: $PROGRAM"
+
+echo "Running emulator"
+${SCRIPT_DIR}/emu.sh $PROGRAM

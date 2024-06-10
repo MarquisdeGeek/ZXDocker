@@ -17,14 +17,16 @@ RUN useradd -ms /bin/bash $USER_NAME && echo "$USER_NAME:$USER_PASSWORD" | chpas
 
 # Base OS and tools
 RUN apt-get update && \
-    apt-get install -y wget unzip git sudo && \
+    apt-get install -y wget unzip git tcc sudo vim && \
     apt-get remove --purge --auto-remove -y
 
 
 # The ZX env
 USER $USER_NAME
 RUN cd $USER_PATH && \
-    mkdir -p zx
+    mkdir -p zx && \
+    mkdir -p zx\zx81 && \
+    mkdir -p zx\zxspectrum
 
 
 # Emu: zesarux
@@ -43,17 +45,27 @@ RUN cd $USER_PATH/zx && \
 COPY zx/emu/zesarux/rc /$USER_PATH/.zesaruxrc
 
 
-# Asm: pasmo
+# BASIC text to .p (81)
+RUN cd $USER_PATH/zx/contrib && \
+    git clone https://github.com/tomwhite/zxtext2p.git && \
+    tcc -lm zxtext2p/zxtext2p.c -o zxtext2 && \
+    rm -rf zxtext2p && \
+    mv zxtext2 zxtext2p
+
+    
+
+# Asm: pasmo (81 & Spectrum)
 USER root
 RUN apt-get -y install pasmo && \     
     apt-get remove --purge --auto-remove -y
 
 
-
 # Our glue tools
 USER $USER_NAME
-COPY zx/tools/* /$USER_PATH/zx
-WORKDIR $USER_PATH/zx
+COPY zx/machines/zx81/tools /$USER_PATH/zx81
+COPY zx/machines/zxspectrum/tools /$USER_PATH/zxspectrum
+
+WORKDIR $USER_PATH/zx/machines
 
 # Keeps the container open
 CMD "/bin/bash"
