@@ -1,8 +1,8 @@
 
 # ZX Docker
 
-This is a simple container for developing BASIC or assembly software on the Sinclair ZX Spectrum. It contains the
-ZEsarUX emulator, 6809 pasmo, and zmakebas - a basic->tap converter.
+This is a simple container for developing BASIC or assembly software on the Sinclair ZX81 and Spectrum. It contains the
+ZEsarUX emulator, 6809 pasmo, and two basic->tap converters: zxtext2p and zmakebas.
 
 It has only been tested on Linux.
 
@@ -29,7 +29,7 @@ You will then be dropped into a (root) shell in the Docker container.
 # Doing ZX stuff
 
 There are a couple of sample progams in `src` which can be build, and automatically run under the
-emulator with:
+emulator. Simply `cd` in the directory of the machine you wish to use and proceed with:
 
 ```
 ./doasm.sh
