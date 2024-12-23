@@ -2,7 +2,7 @@
 # ZX Docker
 
 This is a simple container for developing BASIC or assembly software on the Sinclair ZX81 and Spectrum. It contains the
-ZEsarUX emulator, 6809 pasmo, and two basic->tap converters: zxtext2p and zmakebas.
+ZEsarUX emulator, pasmo, and two basic->tap converters: zxtext2p and zmakebas.
 
 It has only been tested on Linux.
 
@@ -23,23 +23,29 @@ Secondly, with a valid container run:
 ./1-run.sh
 ```
 
-You will then be dropped into a (root) shell in the Docker container.
+You will then be dropped into a shell in the Docker container.
 
 
 # Doing ZX stuff
 
 There are a couple of sample progams in `src` which can be build, and automatically run under the
-emulator. Simply `cd` in the directory of the machine you wish to use and proceed with:
+emulator. Simply `cd` in the directory of the machine you wish to use, e.g.
 
 ```
-./doasm.sh
+cd zxspectrum
+```
+
+And then proceed with:
+
+```
+./tools/doasm.sh
 ```
 
 for a simple 'dump graphics to the screen' assembly program, held in `src/asm/test`. Pass a filename to this program
 to assembly other code. The resultant binary is written to `out/src/asm/test/main.asm.tap`
 
 ```
-./dobas.sh
+./tools/dobas.sh
 ```
 
 to convert a plain text BASIC program into a TAP file, written to `out/src/bas/test.tap`.
@@ -47,7 +53,7 @@ to convert a plain text BASIC program into a TAP file, written to `out/src/bas/t
 And finally, run any existing .tap files with the wrapper script of:
 
 ```
-./dotap.sh
+./tools/dotap.sh
 ```
 
 Because the container mounts a directory on the host machine, you can edit the source using
@@ -72,7 +78,7 @@ The Docker Docs contain all you need. For cheaters....
 
 1. Determine the ID (or name) of the running container
 ```
-r$ docker ps
+$ docker ps
 CONTAINER ID   IMAGE         COMMAND       CREATED          STATUS          PORTS     NAMES
 9ce1fcb8585c   emulates/zx   "/bin/bash"   21 minutes ago   Up 21 minutes             upbeat_engelbart
 ```
@@ -88,7 +94,7 @@ docker cp 9ce1fcb8585c:/root/zx/out/src/bas/test.tap host_local_file.tap
 Remove the xhost access rights with
 
 ```
-./2-end.sh
+./tools/2-end.sh
 ```
 
 

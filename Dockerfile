@@ -68,5 +68,5 @@ COPY zx/machines/zxspectrum/tools /$USER_PATH/zxspectrum
 WORKDIR $USER_PATH/zx/machines
 
 # Keeps the container open
-CMD "/bin/bash"
+CMD [ "/bin/bash" ]
 
